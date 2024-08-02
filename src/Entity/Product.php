@@ -33,6 +33,11 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    public function __construct()
+    {
+        $this->ref = uniqid('ITEM_');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,4 +114,9 @@ class Product
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->name;
+    }
+    
 }

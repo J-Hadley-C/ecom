@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $ref = null;
 
-    #[ORM\Column(length: 120, )]
+    #[ORM\Column(length: 120,)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -27,7 +27,7 @@ class Category
     /**
      * @var Collection<int, product>
      */
-    #[ORM\OneToMany(targetEntity: product::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $products;
 
     public function __construct()
@@ -84,7 +84,7 @@ class Category
         return $this->products;
     }
 
-    public function addProduct(product $product): static
+    public function addProduct(Product $product): static
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
@@ -94,7 +94,7 @@ class Category
         return $this;
     }
 
-    public function removeProduct(product $product): static
+    public function removeProduct(Product $product): static
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
@@ -105,16 +105,8 @@ class Category
 
         return $this;
     }
-
-    public function getCart(): ?string
-    {
-        return $this->cart;
+    public function __toString()
+        {
+            return $this->name;
+        }
     }
-
-    public function setCart(string $cart): static
-    {
-        $this->cart = $cart;
-
-        return $this;
-    }
-}
